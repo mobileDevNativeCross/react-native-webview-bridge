@@ -9,23 +9,24 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
+#import "RCTWebViewBridge.h"
+#import "RCTWebViewBridgeManager.h"
 
- #import "RCTWebViewBridge.h"
- #import "RCTWebViewBridgeManager.h"
+#if __has_include(<React/RCTBridge.h>)
+#import <React/RCTBridge.h>
+#import <React/RCTUIManager.h>
+#import <React/UIView+React.h>
+#elif __has_include("RCTBridge.h")
+#import "RCTBridge.h"
+#import "RCTUIManager.h"
+#import "UIView+React.h"
+#else
+#import "React/RCTBridge.h"
+#import "React/RCTUIManager.h"
+#import "React/UIView+React.h"
+#endif
 
- #if __has_include(<React/RCTBridge.h>)
- #import <React/RCTBridge.h>
- #import <React/RCTUIManager.h>
- #import <React/UIView+React.h>
- #elif __has_include("RCTBridge.h")
- #import "RCTBridge.h"
- #import "RCTUIManager.h"
- #import "UIView+React.h"
- #else
- #import "React/RCTBridge.h"
- #import "React/RCTUIManager.h"
- #import "React/UIView+React.h"
- #endif
+
 
 @interface RCTWebViewBridgeManager () <RCTWebViewBridgeDelegate>
 
@@ -60,7 +61,7 @@ RCT_EXPORT_VIEW_PROPERTY(onLoadingError, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onShouldStartLoadWithRequest, RCTDirectEventBlock)
 RCT_REMAP_VIEW_PROPERTY(allowsInlineMediaPlayback, _webView.allowsInlineMediaPlayback, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(onBridgeMessage, RCTDirectEventBlock)
-RCT_REMAP_VIEW_PROPERTY(keyboardDisplayRequiresUserAction, _webView.keyboardDisplayRequiresUserAction, BOOL)
+
 
 - (NSDictionary<NSString *, id> *)constantsToExport
 {
